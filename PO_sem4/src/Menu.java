@@ -19,7 +19,7 @@ public class Menu extends JMenuBar{
     
     public Menu() {
          
-<<<<<<< Upstream, based on branch 'main' of https://github.com/AntonHul/PO_sem4.git
+
     	
         menuExport = new JMenu("Export");
         this.add(menuExport);
@@ -79,7 +79,7 @@ public class Menu extends JMenuBar{
         menuLanguage = new JMenu("Language");
         this.add(menuLanguage);
         
-=======
+
           menuOptions = new JMenu("Options");
           this.add(menuOptions);
           menuItem1 = new JMenuItem("Algorithm");
@@ -99,11 +99,10 @@ public class Menu extends JMenuBar{
           submenuItem3 = new JMenuItem("Small particles color");
           menuColors.add(submenuItem3);
          
-          menuLanguage = new JMenu("Language fsfsefsfssfsfsfs");
+          menuLanguage = new JMenu("Language");
           this.add(menuLanguage);
          
           
->>>>>>> 37c7f0e test
 	}
 
 }
