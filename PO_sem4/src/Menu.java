@@ -18,8 +18,7 @@ public class Menu extends JMenuBar{
     Color BGColor, bigParticleColor, smallParticlesColor;
     
     public Menu() {
-         
-
+    	// (Michal)
     	
         menuExport = new JMenu("Export");
         this.add(menuExport);
@@ -38,48 +37,39 @@ public class Menu extends JMenuBar{
         
         submenuItem1 = new JMenuItem("Background color");
         submenuItem1.addActionListener(new ActionListener() {
-
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				// TODO Auto-generated method stub
 				BGColor = JColorChooser.showDialog(submenuItem1, "Choose background color", getForeground());
-				
 			}
-        	
-        	
         });
+        
         menuColors.add(submenuItem1);
         submenuItem2 = new JMenuItem("Big particle color");
         submenuItem2.addActionListener(new ActionListener() {
-
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				// TODO Auto-generated method stub
-				bigParticleColor = JColorChooser.showDialog(submenuItem2, "Choose big particle color", getForeground());
-				
+				bigParticleColor = JColorChooser.showDialog(submenuItem2, "Choose big particle color", getForeground());	
 			}
-        	
-        	
         });
+        
         menuColors.add(submenuItem2);
         submenuItem3 = new JMenuItem("Small particles color");
         submenuItem3.addActionListener(new ActionListener() {
-
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				// TODO Auto-generated method stub
-				smallParticlesColor = JColorChooser.showDialog(submenuItem3, "Choose small particles color", getForeground());
-				
+				smallParticlesColor = JColorChooser.showDialog(submenuItem3, "Choose small particles color", getForeground());	
 			}
-        	
-        	
         });
+        
         menuColors.add(submenuItem3);
         
         menuLanguage = new JMenu("Language");
         this.add(menuLanguage);
-         
           
-	}
+	} // Koniec konstruktora
+    
+    public Color getBGColor() {
+    	return BGColor;
+    }
 
 }

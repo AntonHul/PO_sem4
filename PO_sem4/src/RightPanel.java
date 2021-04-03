@@ -2,6 +2,8 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.GridLayout;
 import java.awt.LayoutManager;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
@@ -63,6 +65,13 @@ public class RightPanel extends JPanel {
 		this.add(textDisplayed);
 	
 		reset = new JButton("RESET");
+		reset.addActionListener(new ActionListener(){
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO update parametrow symulacji, repaint centralnego panelu	
+			}
+		});
 		this.add(reset);
 		
 		start = new JButton("START/STOP");

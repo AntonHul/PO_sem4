@@ -16,11 +16,13 @@ import javax.swing.event.ChangeListener;
 public class GUI extends JFrame{
 
 	RightPanel rightPanel;
+	CenterPanel centerPanel;
 	Menu menu;
 	
 	public GUI() throws HeadlessException {
 		this.setSize(1280, 720);
 		this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+		this.setResizable(false);
 		this.setLayout(new BorderLayout());
 	
 	menu = new Menu();
@@ -31,11 +33,14 @@ public class GUI extends JFrame{
 	this.add(rightPanel, BorderLayout.LINE_END);
 	
 	
+	//Center panel (Micha³)
+	centerPanel = new CenterPanel();
+	this.add(centerPanel, BorderLayout.CENTER);
 	
 	
 	
 	
-	}
+	} // Koniec konstruktora
 	
 	public static void main(String[] args) {
 		GUI mainFrame = new GUI();
