@@ -16,53 +16,16 @@ import javax.swing.event.ChangeListener;
 public class GUI extends JFrame{
 
 	RightPanel rightPanel;
+	Menu menu;
 	
 	public GUI() throws HeadlessException {
 		this.setSize(1280, 720);
 		this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 		this.setLayout(new BorderLayout());
 	
-		//Menu górne (Anton)
-		JMenuBar mainMenuBar = new JMenuBar();
-		this.setJMenuBar(mainMenuBar);
+	menu = new Menu();
+	this.setJMenuBar(menu);
 		
-		JMenu menuFile = new JMenu("File");
-		mainMenuBar.add(menuFile);
-		
-		//Button export (Anton)
-		JMenuItem menuFileExport = new JMenuItem("Export");
-		menuFileExport.addActionListener(new ActionListener() {
-
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				
-			}});
-		menuFile.add(menuFileExport);
-	
-		//Button import (Anton)
-		JMenuItem menuFileImport = new JMenuItem("Import");
-		menuFileImport.addActionListener(new ActionListener() {
-
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				
-			}});
-		menuFile.add(menuFileImport);
-	
-		//Menu settings (Anton)
-		JMenu menuSet = new JMenu("Settings");
-		mainMenuBar.add(menuSet);
-		
-		//Button koloru (Anton)
-		JMenuItem menuSetColor = new JMenuItem("Colour");
-		menuSetColor.addActionListener(new ActionListener() {
-
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				
-			}});
-		menuSet.add(menuSetColor);
-	
 	//Right panel, ustawienie parametrów (Anton)
 	rightPanel = new RightPanel();
 	this.add(rightPanel, BorderLayout.LINE_END);
@@ -76,7 +39,7 @@ public class GUI extends JFrame{
 	
 	public static void main(String[] args) {
 		GUI mainFrame = new GUI();
-		mainFrame.setTitle("Symulacja ruchów Browna");
+		mainFrame.setTitle("Brownian motion simulation");
 		mainFrame.setVisible(true);
 
 	}
