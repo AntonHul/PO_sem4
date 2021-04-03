@@ -62,7 +62,7 @@ public class RightPanel extends JPanel {
 		textDisplayed.setBorder(BorderFactory.createLineBorder(new Color(0,0,0)));
 		this.add(textDisplayed);
 	
-		reset = new JButton("RESET");
+		reset = new JButton("RESETjfyjyfjgf");
 		this.add(reset);
 		
 		start = new JButton("START/STOP");
