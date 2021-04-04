@@ -12,6 +12,9 @@ public class CenterPanel extends JPanel {
 	
 	Color BGColor;
 	
+	int numberSmall;
+	double valueMassSmall, valueRadiusSmall, valueMassLarge, valueRadiusLarge, valueDisplayed;
+	
 	public CenterPanel() {
 		BGColor = Color.LIGHT_GRAY;
 		this.setBackground(BGColor);
@@ -23,7 +26,7 @@ public class CenterPanel extends JPanel {
 		Graphics2D g2d = (Graphics2D) g;
         
         Random rand = new Random();
-        for(int i=0; i<1000; i++) {
+        for(int i=0; i<numberSmall; i++) {
         	Ellipse2D.Double smallParticle = new Ellipse2D.Double(rand.nextInt(1100), rand.nextInt(700), 10, 10);
         	g2d.setColor(Color.black);
         	g2d.fill(smallParticle);
@@ -34,5 +37,36 @@ public class CenterPanel extends JPanel {
         g2d.fill(bigParticle);
         
 	} // Pokazowe cz¹stki
+	
+
+	public void setNumberSmall(int numberSmall) {
+		this.numberSmall = numberSmall;
+		repaint();
+	}
+
+	public void setValueMassSmall(double valueMassSmall) {
+		this.valueMassSmall = valueMassSmall;
+		repaint();
+	}
+
+	public void setValueRadiusSmall(double valueRadiusSmall) {
+		this.valueRadiusSmall = valueRadiusSmall;
+		repaint();
+	}
+
+	public void setValueMassLarge(double valueMassLarge) {
+		this.valueMassLarge = valueMassLarge;
+		repaint();
+	}
+
+	public void setValueRadiusLarge(double valueRadiusLarge) {
+		this.valueRadiusLarge = valueRadiusLarge;
+		repaint();
+	}
+
+	public void setValueDisplayed(double valueDisplayed) {
+		this.valueDisplayed = valueDisplayed;
+		repaint();
+	}
 	
 }

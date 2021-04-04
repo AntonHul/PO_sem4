@@ -36,9 +36,8 @@ public class GUI extends JFrame{
 	//Center panel (Micha³)
 	centerPanel = new CenterPanel();
 	this.add(centerPanel, BorderLayout.CENTER);
-	
-	
-	
+
+	rightPanel.setCenterPanel(centerPanel);
 	
 	} // Koniec konstruktora
 	
