@@ -10,6 +10,10 @@ import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
 
 @SuppressWarnings("serial")
 public class RightPanel extends JPanel {
@@ -32,8 +36,12 @@ public class RightPanel extends JPanel {
 		this.add(labelNumberSmall);
 		textNumberSmall = new JTextField();
 		textNumberSmall.setBorder(BorderFactory.createLineBorder(new Color(0,0,0)));
-		textNumberSmall.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
+		textNumberSmall.getDocument().addDocumentListener(new DocumentListener() {
+			public void changedUpdate(DocumentEvent e) {warn();}
+			public void removeUpdate(DocumentEvent e) {warn();}
+			public void insertUpdate(DocumentEvent e) {warn();}
+			public void warn() {
+				if(!textNumberSmall.getText().equals(""))
 				numberSmall = Integer.parseInt(textNumberSmall.getText());
 				centerPanel.setNumberSmall(numberSmall);
 			}});
@@ -44,8 +52,12 @@ public class RightPanel extends JPanel {
 		this.add(labelMassSmall);
 		textMassSmall = new JTextField();
 		textMassSmall.setBorder(BorderFactory.createLineBorder(new Color(0,0,0)));
-		textMassSmall.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
+		textMassSmall.getDocument().addDocumentListener(new DocumentListener() {
+			public void changedUpdate(DocumentEvent e) {warn();}
+			public void removeUpdate(DocumentEvent e) {warn();}
+			public void insertUpdate(DocumentEvent e) {warn();}
+			public void warn() {
+				if(!textMassSmall.getText().equals(""))
 				valueMassSmall = Double.parseDouble(textMassSmall.getText());
 				centerPanel.setValueMassSmall(valueMassSmall);
 			}});
@@ -56,8 +68,12 @@ public class RightPanel extends JPanel {
 		this.add(labelRadiusSmall);
 		textRadiusSmall = new JTextField();
 		textRadiusSmall.setBorder(BorderFactory.createLineBorder(new Color(0,0,0)));
-		textRadiusSmall.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
+		textRadiusSmall.getDocument().addDocumentListener(new DocumentListener() {
+			public void changedUpdate(DocumentEvent e) {warn();}
+			public void removeUpdate(DocumentEvent e) {warn();}
+			public void insertUpdate(DocumentEvent e) {warn();}
+			public void warn() {
+				if(!textRadiusSmall.getText().equals(""))
 				valueRadiusSmall = Double.parseDouble(textRadiusSmall.getText());
 				centerPanel.setValueRadiusSmall(valueRadiusSmall);
 			}});
@@ -68,8 +84,12 @@ public class RightPanel extends JPanel {
 		this.add(labelMassLarge);
 		textMassLarge = new JTextField();
 		textMassLarge.setBorder(BorderFactory.createLineBorder(new Color(0,0,0)));
-		textMassLarge.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
+		textMassLarge.getDocument().addDocumentListener(new DocumentListener() {
+			public void changedUpdate(DocumentEvent e) {warn();}
+			public void removeUpdate(DocumentEvent e) {warn();}
+			public void insertUpdate(DocumentEvent e) {warn();}
+			public void warn() {
+				if(!textMassLarge.getText().equals(""))
 				valueMassLarge = Double.parseDouble(textMassLarge.getText());
 				centerPanel.setValueMassLarge(valueMassLarge);
 			}});
@@ -80,8 +100,12 @@ public class RightPanel extends JPanel {
 		this.add(labelRadiusLarge);
 		textRadiusLarge = new JTextField();
 		textRadiusLarge.setBorder(BorderFactory.createLineBorder(new Color(0,0,0)));
-		textRadiusLarge.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
+		textRadiusLarge.getDocument().addDocumentListener(new DocumentListener() {
+			public void changedUpdate(DocumentEvent e) {warn();}
+			public void removeUpdate(DocumentEvent e) {warn();}
+			public void insertUpdate(DocumentEvent e) {warn();}
+			public void warn() {
+				if(!textRadiusLarge.getText().equals(""))
 				valueRadiusLarge = Double.parseDouble(textRadiusLarge.getText());
 				centerPanel.setValueRadiusLarge(valueRadiusLarge);
 			}});
@@ -92,8 +116,12 @@ public class RightPanel extends JPanel {
 		this.add( labelDisplayed);
 		textDisplayed = new JTextField();
 		textDisplayed.setBorder(BorderFactory.createLineBorder(new Color(0,0,0)));
-		textDisplayed.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
+		textDisplayed.getDocument().addDocumentListener(new DocumentListener() {
+			public void changedUpdate(DocumentEvent e) {warn();}
+			public void removeUpdate(DocumentEvent e) {warn();}
+			public void insertUpdate(DocumentEvent e) {warn();}
+			public void warn() {
+				if(!textDisplayed.getText().equals(""))
 				valueDisplayed = Double.parseDouble(textDisplayed.getText());
 				centerPanel.setValueDisplayed(valueDisplayed);
 			}});
