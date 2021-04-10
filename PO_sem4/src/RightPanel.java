@@ -16,7 +16,7 @@ import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 
 @SuppressWarnings("serial")
-public class RightPanel extends JPanel {
+public class RightPanel extends JPanel{
 
 	JLabel labelNumberSmall, labelMassSmall, labelRadiusSmall, labelMassLarge, labelRadiusLarge, labelDisplayed;
 	JTextField textNumberSmall, textMassSmall,textRadiusSmall, textMassLarge, textRadiusLarge, textDisplayed;
@@ -40,10 +40,13 @@ public class RightPanel extends JPanel {
 			public void changedUpdate(DocumentEvent e) {warn();}
 			public void removeUpdate(DocumentEvent e) {warn();}
 			public void insertUpdate(DocumentEvent e) {warn();}
-			public void warn() {
+			public void warn() throws NumberFormatException {
+				try {
 				if(!textNumberSmall.getText().equals(""))
-				numberSmall = Integer.parseInt(textNumberSmall.getText());
-				centerPanel.setNumberSmall(numberSmall);
+					numberSmall = Integer.parseInt(textNumberSmall.getText());
+					centerPanel.setNumberSmall(numberSmall);
+				}
+				catch(NumberFormatException e) {}
 			}});
 		this.add(textNumberSmall);
 	
@@ -56,10 +59,13 @@ public class RightPanel extends JPanel {
 			public void changedUpdate(DocumentEvent e) {warn();}
 			public void removeUpdate(DocumentEvent e) {warn();}
 			public void insertUpdate(DocumentEvent e) {warn();}
-			public void warn() {
+			public void warn() throws NumberFormatException {
+				try {
 				if(!textMassSmall.getText().equals(""))
-				valueMassSmall = Double.parseDouble(textMassSmall.getText());
-				centerPanel.setValueMassSmall(valueMassSmall);
+					valueMassSmall = Double.parseDouble(textMassSmall.getText());
+					centerPanel.setValueMassSmall(valueMassSmall);
+				}
+				catch(NumberFormatException e) {}
 			}});
 		this.add(textMassSmall);
 		
@@ -72,10 +78,13 @@ public class RightPanel extends JPanel {
 			public void changedUpdate(DocumentEvent e) {warn();}
 			public void removeUpdate(DocumentEvent e) {warn();}
 			public void insertUpdate(DocumentEvent e) {warn();}
-			public void warn() {
+			public void warn()  throws NumberFormatException {
+				try {
 				if(!textRadiusSmall.getText().equals(""))
-				valueRadiusSmall = Double.parseDouble(textRadiusSmall.getText());
-				centerPanel.setValueRadiusSmall(valueRadiusSmall);
+					valueRadiusSmall = Double.parseDouble(textRadiusSmall.getText());
+					centerPanel.setValueRadiusSmall(valueRadiusSmall);
+				}
+				catch(NumberFormatException e) {}
 			}});
 		this.add(textRadiusSmall);
 		
@@ -88,10 +97,13 @@ public class RightPanel extends JPanel {
 			public void changedUpdate(DocumentEvent e) {warn();}
 			public void removeUpdate(DocumentEvent e) {warn();}
 			public void insertUpdate(DocumentEvent e) {warn();}
-			public void warn() {
+			public void warn() throws NumberFormatException {
+				try {
 				if(!textMassLarge.getText().equals(""))
-				valueMassLarge = Double.parseDouble(textMassLarge.getText());
-				centerPanel.setValueMassLarge(valueMassLarge);
+					valueMassLarge = Double.parseDouble(textMassLarge.getText());
+					centerPanel.setValueMassLarge(valueMassLarge);
+				}
+				catch(NumberFormatException e) {}
 			}});
 		this.add(textMassLarge);
 		
@@ -104,10 +116,13 @@ public class RightPanel extends JPanel {
 			public void changedUpdate(DocumentEvent e) {warn();}
 			public void removeUpdate(DocumentEvent e) {warn();}
 			public void insertUpdate(DocumentEvent e) {warn();}
-			public void warn() {
+			public void warn() throws NumberFormatException {
+				try {
 				if(!textRadiusLarge.getText().equals(""))
-				valueRadiusLarge = Double.parseDouble(textRadiusLarge.getText());
-				centerPanel.setValueRadiusLarge(valueRadiusLarge);
+					valueRadiusLarge = Double.parseDouble(textRadiusLarge.getText());
+					centerPanel.setValueRadiusLarge(valueRadiusLarge);
+				}	
+				catch(NumberFormatException e) {}
 			}});
 		this.add(textRadiusLarge);
 	
@@ -120,10 +135,13 @@ public class RightPanel extends JPanel {
 			public void changedUpdate(DocumentEvent e) {warn();}
 			public void removeUpdate(DocumentEvent e) {warn();}
 			public void insertUpdate(DocumentEvent e) {warn();}
-			public void warn() {
+			public void warn() throws NumberFormatException {
+				try {
 				if(!textDisplayed.getText().equals(""))
-				valueDisplayed = Double.parseDouble(textDisplayed.getText());
-				centerPanel.setValueDisplayed(valueDisplayed);
+					valueDisplayed = Double.parseDouble(textDisplayed.getText());
+					centerPanel.setValueDisplayed(valueDisplayed);
+				}	
+				catch(NumberFormatException e) {}
 			}});
 		this.add(textDisplayed);
 	
