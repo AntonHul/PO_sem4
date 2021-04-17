@@ -56,15 +56,19 @@ public class Calculations extends SwingWorker<Void, ParticleInfo>{
 			allParicles.yPosition.add(rand.nextInt(700)); 
 			i++;
 			}
+		Thread.sleep(100);
 		publish(allParicles);
    		}
    	return null;
 	}
 	
-	protected void process(ParticleInfo allParicles) {
-		centerPanel.setAllParicles(allParicles);
-		System.out.println(allParicles.numberSmall);
-	}
+	@Override
+    protected void process(List <ParticleInfo> allParicles) {
+		centerPanel.setAllParicles(allParicles.get(0));
+    }
+    @Override
+    protected void done() {
+    }
 	
 	public void setNumberSmall(int numberSmall) {
 		this.allParicles.numberSmall = numberSmall;
