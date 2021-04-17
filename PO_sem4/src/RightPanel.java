@@ -26,6 +26,7 @@ public class RightPanel extends JPanel{
 	int numberSmall;
 	double valueMassSmall, valueRadiusSmall, valueMassLarge, valueRadiusLarge, valueDisplayed;
 	CenterPanel centerPanel;
+	Calculations counter;
 	
 	public RightPanel() {
 		this.setLayout(new GridLayout(0, 1, 10, 10));
@@ -44,7 +45,7 @@ public class RightPanel extends JPanel{
 				try {
 				if(!textNumberSmall.getText().equals(""))
 					numberSmall = Integer.parseInt(textNumberSmall.getText());
-					centerPanel.setNumberSmall(numberSmall);
+					counter.setNumberSmall(numberSmall);
 				}
 				catch(NumberFormatException e) {}
 			}});
@@ -153,13 +154,13 @@ public class RightPanel extends JPanel{
 				// TODO update parametrow symulacji
 				numberSmall = 10;
 				textNumberSmall.setText(Integer.toString(numberSmall));
-				centerPanel.setNumberSmall(numberSmall);
+				counter.setNumberSmall(numberSmall);
 				
 				valueMassSmall = 1;
 				textMassSmall.setText(Double.toString(valueMassSmall));
 				centerPanel.setValueMassSmall(valueMassSmall);
 				
-				valueRadiusSmall = 1;
+				valueRadiusSmall = 10;
 				textRadiusSmall.setText(Double.toString(valueRadiusSmall));
 				centerPanel.setValueRadiusSmall(valueRadiusSmall);
 				
@@ -167,7 +168,7 @@ public class RightPanel extends JPanel{
 				textMassLarge.setText(Double.toString(valueMassLarge));
 				centerPanel.setValueMassLarge(valueMassLarge);
 				
-				valueRadiusLarge = 1;
+				valueRadiusLarge = 200;
 				textRadiusLarge.setText(Double.toString(valueRadiusLarge));
 				centerPanel.setValueRadiusLarge(valueRadiusLarge);
 				
@@ -200,28 +201,8 @@ public class RightPanel extends JPanel{
 		this.centerPanel = centerPanel_;
 	}
 	
-	public int getNumberSmall() {
-		return numberSmall;
-	}
-	
-	public double getValueMassSmall() {
-		return valueMassSmall;
-	}
-
-	public double getValueRadiusSmall() {
-		return valueRadiusSmall;
-	}
-
-	public double getValueMassLarge() {
-		return valueMassLarge;
-	}
-
-	public double getValueRadiusLarge() {
-		return valueRadiusLarge;
-	}
-
-	public double getValueDisplayed() {
-		return valueDisplayed;
+	public void setCalculations(Calculations counter) {
+		this.counter = counter;
 	}
 
 }

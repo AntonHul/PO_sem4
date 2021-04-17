@@ -6,6 +6,8 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
@@ -38,15 +40,27 @@ public class GUI extends JFrame{
 		this.add(centerPanel, BorderLayout.CENTER);
 
 		rightPanel.setCenterPanel(centerPanel);
-	} 
+	
+} 
 	
 	public static void main(String[] args) {
 		SwingUtilities.invokeLater(new Runnable() {
-		public void run() {
-			GUI mainFrame = new GUI();
-			mainFrame.setTitle("Brownian motion simulation");
-			mainFrame.setVisible(true);
-		}
-	});
+			public void run() {
+				GUI mainFrame = new GUI();
+				mainFrame.setTitle("Brownian motion simulation");
+				mainFrame.setVisible(true);
+
+				//obliczenia 
+				Calculations counter = new Calculations();
+				counter.setCenterPanel(mainFrame.centerPanel);
+				mainFrame.rightPanel.setCalculations(counter);
+				
+				//Watki
+				ExecutorService exec = Executors.newFixedThreadPool(2);
+				exec.execute(counter);
+				exec.shutdown();
+			
+			}
+		});
 	}
 }
