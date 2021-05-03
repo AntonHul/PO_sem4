@@ -12,17 +12,19 @@ import javax.swing.JPanel;
 @SuppressWarnings("serial")
 public class CenterPanel extends JPanel {
 	
-	Color BGColor;
+	Color BGColor, colorSmall, colorBig;
 
 	double valueMassSmall, valueRadiusSmall, valueMassLarge, valueRadiusLarge, valueDisplayed;
-	ParticleInfo allParicles;
+	ParticleInfo allParticles;
 	
 	public CenterPanel() {
 		BGColor = Color.LIGHT_GRAY;
-		allParicles = new ParticleInfo();
+		colorBig = Color.blue;
+		colorSmall = Color.black;
+		allParticles = new ParticleInfo();
 		this.setBackground(BGColor);
-		valueRadiusLarge = 200;
-		valueRadiusSmall = 15;
+		valueRadiusLarge = 100;
+		valueRadiusSmall = 5;
 	} // Koniec Konstruktora
 	
 	public void paintComponent(Graphics g) {
@@ -30,15 +32,15 @@ public class CenterPanel extends JPanel {
 		Graphics2D g2d = (Graphics2D) g;
 		
 		int i = 1;
-		while (allParicles.numberSmall > i)  {
-        	Ellipse2D.Double smallParticle = new Ellipse2D.Double(allParicles.xPosition.get(i), allParicles.yPosition.get(i), valueRadiusSmall, valueRadiusSmall);
-        	g2d.setColor(Color.black);
+		while (allParticles.numberSmall >= i)  {
+        	Ellipse2D.Double smallParticle = new Ellipse2D.Double(allParticles.particleList.get(i).xPosition, allParticles.particleList.get(i).yPosition, valueRadiusSmall*2, valueRadiusSmall*2);
+        	g2d.setColor(colorSmall);
         	g2d.fill(smallParticle);
         	i++;
         }
         
-        Ellipse2D.Double bigParticle = new Ellipse2D.Double(allParicles.xPosition.get(0), allParicles.yPosition.get(0), valueRadiusLarge, valueRadiusLarge);
-        g2d.setColor(Color.blue);
+        Ellipse2D.Double bigParticle = new Ellipse2D.Double(allParticles.particleList.get(0).xPosition, allParticles.particleList.get(0).yPosition, valueRadiusLarge*2, valueRadiusLarge*2);
+        g2d.setColor(colorBig);
         g2d.fill(bigParticle);
         
 	} 
@@ -69,10 +71,22 @@ public class CenterPanel extends JPanel {
 		repaint();
 	}
 	
+	public void setBGColor(Color c) {
+		this.BGColor = c;
+	}
+	
+	public void setColorBig(Color c) {
+		this.colorBig = c;
+	}
+	
+	public void setColorSmall(Color c) {
+		this.colorSmall = c;
+	}
+	
 	// Settery dla obliczen
 
     public void setAllParicles(ParticleInfo allParicles) {
-    	this.allParicles = allParicles;
+    	this.allParticles = allParicles;
     	repaint();
     }
 

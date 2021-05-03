@@ -4,6 +4,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.geom.Ellipse2D;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.Random;
 
 import javax.swing.JColorChooser;
@@ -13,6 +15,7 @@ import javax.swing.JMenuItem;
 import javax.swing.SwingWorker;
 
 
+
 @SuppressWarnings("serial")
 public class Calculations extends SwingWorker<Void, ParticleInfo>{
 	CenterPanel centerPanel;
@@ -20,11 +23,12 @@ public class Calculations extends SwingWorker<Void, ParticleInfo>{
 	
 	double dt;
 	double massSmall, massLarge;
-	ParticleInfo allParicles;
+	double radiusSmall, radiusBig;
+	ParticleInfo allParticles;
 
 	public Calculations() {
     	 Random rand = new Random();
-    	 allParicles = new ParticleInfo();
+    	 allParticles = new ParticleInfo();
     	 on_off = 1;
 	} 
 
@@ -40,38 +44,178 @@ public class Calculations extends SwingWorker<Void, ParticleInfo>{
    	
    	Random rand = new Random();
    	while(on_off == 1) {
-   		allParicles.xVelocity.clear();
-   		allParicles.yVelocity.clear();
-   		allParicles.xPosition.clear(); 
-   		allParicles.yPosition.clear();
-   		allParicles.xVelocity.add(0.0);
-   		allParicles.yVelocity.add(0.0);
-   		allParicles.xPosition.add(470);
-   		allParicles.yPosition.add(240);
+
+   		dt = 0.01;
+   		
    		int i = 1;
-		while (allParicles.numberSmall >= i)  {
-			allParicles.xVelocity.add(rand.nextDouble()*10); 
-			allParicles.yVelocity.add(rand.nextDouble()*10); 
-			allParicles.xPosition.add(rand.nextInt(1100)); 
-			allParicles.yPosition.add(rand.nextInt(700)); 
+   		if(allParticles.numberSmallTmp > allParticles.numberSmall) {
+   			for(i=0; i<allParticles.numberSmallTmp - allParticles.numberSmall; i++) {
+   				allParticles.particleList.add(new Particle(rand.nextDouble()*centerPanel.getWidth(), rand.nextDouble()*centerPanel.getHeight(), rand.nextDouble()*20-10.0, rand.nextDouble()*20-10, 1.0, 1.0));
+   			}
+   			allParticles.numberSmall = allParticles.numberSmallTmp;
+   		} else {
+   			
+   			for(i=0; i<allParticles.numberSmall - allParticles.numberSmallTmp; i++) {
+   				allParticles.particleList.remove(allParticles.particleList.size()-1);
+   			}
+   			
+   			allParticles.numberSmall = allParticles.numberSmallTmp;
+   		}
+   		
+   		allParticles.particleList.get(0).radius = radiusBig;
+   		allParticles.particleList.get(0).xPosition += allParticles.particleList.get(0).xVelocity * dt;
+		allParticles.particleList.get(0).yPosition += allParticles.particleList.get(0).yVelocity * dt;
+		
+		if(allParticles.particleList.get(0).xPosition >= centerPanel.getWidth() - allParticles.particleList.get(0).radius * 2 || allParticles.particleList.get(0).xPosition <= 0) allParticles.particleList.get(0).xVelocity *= -1;
+		if(allParticles.particleList.get(0).yPosition >= centerPanel.getHeight()- allParticles.particleList.get(0).radius * 2 || allParticles.particleList.get(0).yPosition <= 0) allParticles.particleList.get(0).yVelocity *= -1;
+		
+   		
+   		i=1;
+		while (allParticles.numberSmall >= i)  {
+			allParticles.particleList.get(i).radius = radiusSmall;
+			allParticles.particleList.get(i).xPosition += allParticles.particleList.get(i).xVelocity * dt;
+			allParticles.particleList.get(i).yPosition += allParticles.particleList.get(i).yVelocity * dt;
+			
+			if(allParticles.particleList.get(i).xPosition >= centerPanel.getWidth() - allParticles.particleList.get(i).radius * 2 || allParticles.particleList.get(i).xPosition <= 0) allParticles.particleList.get(i).xVelocity *= -1;
+			if(allParticles.particleList.get(i).yPosition >= centerPanel.getHeight()- allParticles.particleList.get(i).radius * 2 || allParticles.particleList.get(i).yPosition <= 0) allParticles.particleList.get(i).yVelocity *= -1;
+			
+			
 			i++;
 			}
-		Thread.sleep(100);
-		publish(allParicles);
+		contactDetection(); //Detekcja kontaktu z innymi czastkami
+		
+		Thread.sleep(1);
+		publish(allParticles);
    		}
    	return null;
 	}
 	
+	public static class Distance {
+		int index; //index
+		double dd; //distance
+		
+		public Distance(int i, double d) {
+			index = i;
+			dd = d;
+		}
+		
+		public static Comparator<Distance> compareDistance() {   
+		 Comparator comp = new Comparator<Distance>(){
+		     @Override
+		     public int compare(Distance d1, Distance d2)
+		     {
+		           return d1.dd > d2.dd ? 1 : -1;
+		     }        
+		 };
+		 return comp;
+		}  
+	}
+	
+	
+	void contactDetection() {
+		//Michal
+		ArrayList<Distance> distances = new ArrayList<Distance>();
+		int np = allParticles.particleList.size();
+		for(int i=0; i<np; i++) {
+			distances.add(new Distance(i, Math.sqrt( Math.pow(allParticles.particleList.get(i).xPosition + allParticles.particleList.get(i).radius, 2) + Math.pow(allParticles.particleList.get(i).yPosition + allParticles.particleList.get(i).radius, 2) ) - allParticles.particleList.get(i).radius ) );
+		}
+		
+		Collections.sort(distances, Distance.compareDistance());
+		
+		for(int i=0; i<np-1; i++) {
+			int ii = distances.get(i).index;
+			for(int j=i+1; j<np; j++) {
+				int jj = distances.get(j).index;
+				double distanceFromIJ = distances.get(j).dd - distances.get(i).dd;
+				
+				if(2.0 * allParticles.particleList.get(ii).radius <= distances.get(j).dd - distances.get(i).dd) {
+					break;	
+				}
+				else {
+					
+					if(distanceIJ(ii, jj) >= 0 ) {
+						particleCollision(ii,jj);
+					} 
+				}
+			}
+		}
+	}
+	double distanceIJ(int ii, int jj) {
+		
+		return allParticles.particleList.get(ii).radius + allParticles.particleList.get(jj).radius
+				- Math.sqrt(
+						Math.pow(allParticles.particleList.get(ii).xPosition + allParticles.particleList.get(ii).radius - (allParticles.particleList.get(jj).xPosition + allParticles.particleList.get(jj).radius), 2) +
+						Math.pow(allParticles.particleList.get(ii).yPosition + allParticles.particleList.get(ii).radius - (allParticles.particleList.get(jj).yPosition + allParticles.particleList.get(jj).radius), 2)
+						);
+
+	}
+	void particleCollision(int i, int j) {
+		//Michal
+		double u1x, u1y, u2x, u2y;
+		
+		double M, m1, m2, x1, x2, y1, y2, vx1, vx2, vy1, vy2; //zmienne pomocnicze, bedzie mozna pozniej pousuwac
+		
+		m1 = allParticles.particleList.get(i).mass;
+		m2 = allParticles.particleList.get(j).mass;
+		M = m1 + m2;
+		
+		x1 = allParticles.particleList.get(i).xPosition + allParticles.particleList.get(i).radius;
+		x2 = allParticles.particleList.get(j).xPosition + allParticles.particleList.get(j).radius;
+		
+		y1 = allParticles.particleList.get(i).yPosition + allParticles.particleList.get(i).radius;
+		y2 = allParticles.particleList.get(j).yPosition + allParticles.particleList.get(j).radius;
+		
+		vx1 = allParticles.particleList.get(i).xVelocity;
+		vx2 = allParticles.particleList.get(j).xVelocity;
+		
+		vy1 = allParticles.particleList.get(i).yVelocity;
+		vy2 = allParticles.particleList.get(j).yVelocity;
+		
+		u1x = (2 * m2 / M) * ((vx1-vx2) * (x1-x2) + (vy1-vy2) * (y1-y2) ) / ( Math.pow(x1-x2, 2) + Math.pow(y1-y2, 2) ) * (x1 - x2);
+		u1y = (2 * m2 / M) * ((vx1-vx2) * (x1-x2) + (vy1-vy2) * (y1-y2) ) / ( Math.pow(x1-x2, 2) + Math.pow(y1-y2, 2) ) * (y1 - y2);
+		
+		u2x = (2 * m1 / M) * ((vx1-vx2) * (x1-x2) + (vy1-vy2) * (y1-y2) ) / ( Math.pow(x1-x2, 2) + Math.pow(y1-y2, 2) ) * (x2 - x1);
+		u2y = (2 * m1 / M) * ((vx1-vx2) * (x1-x2) + (vy1-vy2) * (y1-y2) ) / ( Math.pow(x1-x2, 2) + Math.pow(y1-y2, 2) ) * (y2 - y1);
+		
+		allParticles.particleList.get(i).xVelocity -= u1x;
+		allParticles.particleList.get(i).yVelocity -= u1y;
+		
+		allParticles.particleList.get(j).xVelocity -= u2x;
+		allParticles.particleList.get(j).yVelocity -= u2y;
+		
+		
+	}
+	
+	public void setOnOff() {
+		this.on_off *= -1;
+	}
+	
+	void updatePositions(ParticleInfo particles) {
+		//TODO do zrobienia w osobnych funkcjach
+	}
+	
 	@Override
-    protected void process(List <ParticleInfo> allParicles) {
-		centerPanel.setAllParicles(allParicles.get(0));
+    protected void process(List <ParticleInfo> allParticles) {
+		centerPanel.setAllParicles(allParticles.get(0));
     }
     @Override
     protected void done() {
     }
 	
 	public void setNumberSmall(int numberSmall) {
-		this.allParicles.numberSmall = numberSmall;
+		this.allParticles.numberSmall = numberSmall;
+	}
+	
+	public void setNumberSmallTmp(int numberSmallTmp) {
+		this.allParticles.numberSmallTmp = numberSmallTmp;
+	}
+	
+	public void setRadiusSmall(double radiusSmall) {
+		this.radiusSmall = radiusSmall;
+	}
+	
+	public void setRadiusBig(double radiusBig) {
+		this.radiusBig = radiusBig;
 	}
 
 }

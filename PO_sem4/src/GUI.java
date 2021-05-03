@@ -23,7 +23,7 @@ public class GUI extends JFrame{
 	
 	public GUI() throws HeadlessException {
 		this.setSize(1280, 720);
-		this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
 		this.setResizable(false);
 		this.setLayout(new BorderLayout());
 	

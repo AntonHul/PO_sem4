@@ -45,7 +45,7 @@ public class RightPanel extends JPanel{
 				try {
 				if(!textNumberSmall.getText().equals(""))
 					numberSmall = Integer.parseInt(textNumberSmall.getText());
-					counter.setNumberSmall(numberSmall);
+					counter.setNumberSmallTmp(numberSmall);
 				}
 				catch(NumberFormatException e) {}
 			}});
@@ -84,6 +84,7 @@ public class RightPanel extends JPanel{
 				if(!textRadiusSmall.getText().equals(""))
 					valueRadiusSmall = Double.parseDouble(textRadiusSmall.getText());
 					centerPanel.setValueRadiusSmall(valueRadiusSmall);
+					counter.setRadiusSmall(valueRadiusSmall);
 				}
 				catch(NumberFormatException e) {}
 			}});
@@ -122,6 +123,7 @@ public class RightPanel extends JPanel{
 				if(!textRadiusLarge.getText().equals(""))
 					valueRadiusLarge = Double.parseDouble(textRadiusLarge.getText());
 					centerPanel.setValueRadiusLarge(valueRadiusLarge);
+					counter.setRadiusBig(valueRadiusLarge);
 				}	
 				catch(NumberFormatException e) {}
 			}});
@@ -154,21 +156,22 @@ public class RightPanel extends JPanel{
 				// TODO update parametrow symulacji
 				numberSmall = 10;
 				textNumberSmall.setText(Integer.toString(numberSmall));
-				counter.setNumberSmall(numberSmall);
+				counter.setNumberSmallTmp(numberSmall); //zmiana funkcji 
 				
 				valueMassSmall = 1;
 				textMassSmall.setText(Double.toString(valueMassSmall));
 				centerPanel.setValueMassSmall(valueMassSmall);
 				
-				valueRadiusSmall = 10;
+				valueRadiusSmall = 5;
 				textRadiusSmall.setText(Double.toString(valueRadiusSmall));
 				centerPanel.setValueRadiusSmall(valueRadiusSmall);
+				counter.setRadiusSmall(valueRadiusSmall);
 				
 				valueMassLarge = 1;
 				textMassLarge.setText(Double.toString(valueMassLarge));
 				centerPanel.setValueMassLarge(valueMassLarge);
 				
-				valueRadiusLarge = 200;
+				valueRadiusLarge = 100;
 				textRadiusLarge.setText(Double.toString(valueRadiusLarge));
 				centerPanel.setValueRadiusLarge(valueRadiusLarge);
 				
