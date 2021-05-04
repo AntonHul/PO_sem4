@@ -18,18 +18,16 @@ import javax.swing.SwingWorker;
 
 @SuppressWarnings("serial")
 public class Calculations extends SwingWorker<Void, ParticleInfo>{
+	int on_off, infty;
 	CenterPanel centerPanel;
-	int on_off;
-	
 	double dt;
-	double massSmall, massLarge;
-	double radiusSmall, radiusBig;
 	ParticleInfo allParticles;
 
-	public Calculations() {
+	public Calculations(ParticleInfo allParticles) {
     	 Random rand = new Random();
-    	 allParticles = new ParticleInfo();
-    	 on_off = 1;
+    	 this.allParticles = allParticles;
+    	 on_off = 0;
+    	 infty = 1;
 	} 
 
 
@@ -43,15 +41,31 @@ public class Calculations extends SwingWorker<Void, ParticleInfo>{
 	protected Void doInBackground() throws Exception {
    	
    	Random rand = new Random();
-   	while(on_off == 1) {
+	   	while(infty == 1) {
 
-   		dt = 0.01;
-   		
+   		dt = 0.005;
+   		int dup = 0;
+		double x = 0;
+		double y = 0;
+		
    		int i = 1;
    		if(allParticles.numberSmallTmp > allParticles.numberSmall) {
    			for(i=0; i<allParticles.numberSmallTmp - allParticles.numberSmall; i++) {
-   				allParticles.particleList.add(new Particle(rand.nextDouble()*centerPanel.getWidth(), rand.nextDouble()*centerPanel.getHeight(), rand.nextDouble()*20-10.0, rand.nextDouble()*20-10, 1.0, 1.0));
-   			}
+   				while (dup == 0) {
+   		    		x = rand.nextDouble()*1000;
+   		    		y = rand.nextDouble()*600;
+   		    		for (int j = 0; j < i + allParticles.numberSmall; j++) {
+   		    			if((x >= allParticles.particleList.get(j).xPosition - allParticles.valueRadiusSmall*2 && x <= allParticles.particleList.get(j).xPosition + allParticles.particleList.get(j).radius*2) &&
+   	    					 (y >= allParticles.particleList.get(j).yPosition - allParticles.valueRadiusSmall*2 && y <= allParticles.particleList.get(j).yPosition + allParticles.particleList.get(j).radius*2)) 
+   	    					 dup = 1;
+   		    		}
+   		    		if (dup == 1) dup = 0;
+   		    		else break;
+   				}
+   		    
+   		 allParticles.particleList.add(new Particle(x, y, rand.nextDouble()*20-10.0, rand.nextDouble()*20-10, allParticles.valueRadiusSmall, allParticles.valueMassSmall));
+   		 dup = 0;
+   		} 
    			allParticles.numberSmall = allParticles.numberSmallTmp;
    		} else {
    			
@@ -62,7 +76,9 @@ public class Calculations extends SwingWorker<Void, ParticleInfo>{
    			allParticles.numberSmall = allParticles.numberSmallTmp;
    		}
    		
-   		allParticles.particleList.get(0).radius = radiusBig;
+   		allParticles.particleList.get(0).radius = allParticles.valueRadiusLarge;
+
+   	   	if(on_off == 1) {
    		allParticles.particleList.get(0).xPosition += allParticles.particleList.get(0).xVelocity * dt;
 		allParticles.particleList.get(0).yPosition += allParticles.particleList.get(0).yVelocity * dt;
 		
@@ -72,7 +88,7 @@ public class Calculations extends SwingWorker<Void, ParticleInfo>{
    		
    		i=1;
 		while (allParticles.numberSmall >= i)  {
-			allParticles.particleList.get(i).radius = radiusSmall;
+			allParticles.particleList.get(i).radius = allParticles.valueRadiusSmall;
 			allParticles.particleList.get(i).xPosition += allParticles.particleList.get(i).xVelocity * dt;
 			allParticles.particleList.get(i).yPosition += allParticles.particleList.get(i).yVelocity * dt;
 			
@@ -83,10 +99,10 @@ public class Calculations extends SwingWorker<Void, ParticleInfo>{
 			i++;
 			}
 		contactDetection(); //Detekcja kontaktu z innymi czastkami
-		
+   	   	}
 		Thread.sleep(1);
 		publish(allParticles);
-   		}
+   	}
    	return null;
 	}
 	
@@ -186,8 +202,8 @@ public class Calculations extends SwingWorker<Void, ParticleInfo>{
 		
 	}
 	
-	public void setOnOff() {
-		this.on_off *= -1;
+	public void setOnOff(int on_off) {
+    	this.on_off = on_off;
 	}
 	
 	void updatePositions(ParticleInfo particles) {
@@ -196,26 +212,12 @@ public class Calculations extends SwingWorker<Void, ParticleInfo>{
 	
 	@Override
     protected void process(List <ParticleInfo> allParticles) {
-		centerPanel.setAllParicles(allParticles.get(0));
+		this.allParticles = allParticles.get(0);
+		centerPanel.repaint();
     }
-    @Override
-    protected void done() {
-    }
-	
-	public void setNumberSmall(int numberSmall) {
-		this.allParticles.numberSmall = numberSmall;
-	}
-	
-	public void setNumberSmallTmp(int numberSmallTmp) {
-		this.allParticles.numberSmallTmp = numberSmallTmp;
-	}
-	
-	public void setRadiusSmall(double radiusSmall) {
-		this.radiusSmall = radiusSmall;
-	}
-	
-	public void setRadiusBig(double radiusBig) {
-		this.radiusBig = radiusBig;
+
+	public void setParticleInfo (ParticleInfo allParticles) {
+		this.allParticles = allParticles;
 	}
 
 }

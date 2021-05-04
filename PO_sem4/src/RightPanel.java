@@ -23,14 +23,16 @@ public class RightPanel extends JPanel{
 	JButton reset, start;
 	
 	int on_off;
-	int numberSmall;
-	double valueMassSmall, valueRadiusSmall, valueMassLarge, valueRadiusLarge, valueDisplayed;
-	CenterPanel centerPanel;
+	int numberSmall, valueDisplayed;
+	double valueMassSmall, valueRadiusSmall, valueMassLarge, valueRadiusLarge;
 	Calculations counter;
+	ParticleInfo particles; 
 	
-	public RightPanel() {
-		this.setLayout(new GridLayout(0, 1, 10, 10));
+	public RightPanel(ParticleInfo particles) {
+		this.setLayout(new GridLayout(0, 1, 10, 10));	
 		on_off = 0;
+		
+		this.particles = particles;
 		
 		labelNumberSmall = new JLabel("The number of small molecules:");
 		labelNumberSmall.setBorder(BorderFactory.createLineBorder(new Color(0,0,0)));
@@ -45,12 +47,14 @@ public class RightPanel extends JPanel{
 				try {
 				if(!textNumberSmall.getText().equals(""))
 					numberSmall = Integer.parseInt(textNumberSmall.getText());
-					counter.setNumberSmallTmp(numberSmall);
+					particles.numberSmallTmp = numberSmall;
 				}
 				catch(NumberFormatException e) {}
 			}});
 		this.add(textNumberSmall);
-	
+
+		
+		
 		labelMassSmall = new JLabel("The mass of the small molecules:");
 		labelMassSmall.setBorder(BorderFactory.createLineBorder(new Color(0,0,0)));
 		this.add(labelMassSmall);
@@ -64,7 +68,7 @@ public class RightPanel extends JPanel{
 				try {
 				if(!textMassSmall.getText().equals(""))
 					valueMassSmall = Double.parseDouble(textMassSmall.getText());
-					centerPanel.setValueMassSmall(valueMassSmall);
+					particles.valueMassSmall = valueMassSmall;
 				}
 				catch(NumberFormatException e) {}
 			}});
@@ -83,8 +87,7 @@ public class RightPanel extends JPanel{
 				try {
 				if(!textRadiusSmall.getText().equals(""))
 					valueRadiusSmall = Double.parseDouble(textRadiusSmall.getText());
-					centerPanel.setValueRadiusSmall(valueRadiusSmall);
-					counter.setRadiusSmall(valueRadiusSmall);
+					particles.valueRadiusSmall  = valueRadiusSmall;
 				}
 				catch(NumberFormatException e) {}
 			}});
@@ -103,7 +106,7 @@ public class RightPanel extends JPanel{
 				try {
 				if(!textMassLarge.getText().equals(""))
 					valueMassLarge = Double.parseDouble(textMassLarge.getText());
-					centerPanel.setValueMassLarge(valueMassLarge);
+					particles.valueMassLarge  = valueMassLarge;
 				}
 				catch(NumberFormatException e) {}
 			}});
@@ -122,8 +125,7 @@ public class RightPanel extends JPanel{
 				try {
 				if(!textRadiusLarge.getText().equals(""))
 					valueRadiusLarge = Double.parseDouble(textRadiusLarge.getText());
-					centerPanel.setValueRadiusLarge(valueRadiusLarge);
-					counter.setRadiusBig(valueRadiusLarge);
+					particles.valueRadiusLarge  = valueRadiusLarge;
 				}	
 				catch(NumberFormatException e) {}
 			}});
@@ -141,13 +143,14 @@ public class RightPanel extends JPanel{
 			public void warn() throws NumberFormatException {
 				try {
 				if(!textDisplayed.getText().equals(""))
-					valueDisplayed = Double.parseDouble(textDisplayed.getText());
-					centerPanel.setValueDisplayed(valueDisplayed);
+					valueDisplayed = Integer.parseInt(textDisplayed.getText());
 				}	
 				catch(NumberFormatException e) {}
 			}});
 		this.add(textDisplayed);
 	
+//Button START/STOP	
+		
 		reset = new JButton("RESET");
 		reset.addActionListener(new ActionListener(){
 
@@ -156,33 +159,31 @@ public class RightPanel extends JPanel{
 				// TODO update parametrow symulacji
 				numberSmall = 10;
 				textNumberSmall.setText(Integer.toString(numberSmall));
-				counter.setNumberSmallTmp(numberSmall); //zmiana funkcji 
+				particles.numberSmallTmp  = numberSmall;
 				
 				valueMassSmall = 1;
 				textMassSmall.setText(Double.toString(valueMassSmall));
-				centerPanel.setValueMassSmall(valueMassSmall);
+				particles.valueMassSmall = valueMassSmall;
 				
 				valueRadiusSmall = 5;
 				textRadiusSmall.setText(Double.toString(valueRadiusSmall));
-				centerPanel.setValueRadiusSmall(valueRadiusSmall);
-				counter.setRadiusSmall(valueRadiusSmall);
+				particles.valueRadiusSmall = valueRadiusSmall;
 				
-				valueMassLarge = 1;
+				valueMassLarge = 20;
 				textMassLarge.setText(Double.toString(valueMassLarge));
-				centerPanel.setValueMassLarge(valueMassLarge);
+				particles.valueMassLarge  = valueMassLarge;
 				
 				valueRadiusLarge = 100;
 				textRadiusLarge.setText(Double.toString(valueRadiusLarge));
-				centerPanel.setValueRadiusLarge(valueRadiusLarge);
+				particles.valueRadiusLarge  = valueRadiusLarge;
 				
-				valueDisplayed = 1;
+				valueDisplayed = 10;
 				textDisplayed.setText(Double.toString(valueDisplayed));
-				centerPanel.setValueDisplayed(valueDisplayed);
-				//repaint centralnego panelu	
-
 			}
 		});
 		this.add(reset);
+	
+//Button START/STOP
 		
 		start = new JButton("START/STOP");
 		start.addActionListener(new ActionListener(){
@@ -195,17 +196,39 @@ public class RightPanel extends JPanel{
 				}else{
 					on_off = 0;
 				}
+				counter.setOnOff(on_off);
 			}
 		});
 		this.add(start);
 	}
 	
-	public void setCenterPanel(CenterPanel centerPanel_) {
-		this.centerPanel = centerPanel_;
+//Warunki poczatkowe
+	
+	public void initialParam() {
+			numberSmall = 10;
+			textNumberSmall.setText(Integer.toString(numberSmall));
+			
+			valueMassSmall = 1;
+			textMassSmall.setText(Double.toString(valueMassSmall));
+			
+			valueRadiusSmall = 5;
+			textRadiusSmall.setText(Double.toString(valueRadiusSmall));
+			
+			valueMassLarge = 20;
+			textMassLarge.setText(Double.toString(valueMassLarge));
+			
+			valueRadiusLarge = 100;
+			textRadiusLarge.setText(Double.toString(valueRadiusLarge));
+	
+			valueDisplayed = 10;
+			textDisplayed.setText(Double.toString(valueDisplayed));
 	}
 	
 	public void setCalculations(Calculations counter) {
 		this.counter = counter;
 	}
-
+	
+	public void setParticleInfo(ParticleInfo particles) {
+		this.particles = particles;
+	}
 }

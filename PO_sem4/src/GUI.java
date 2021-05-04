@@ -18,7 +18,7 @@ import javax.swing.event.ChangeListener;
 public class GUI extends JFrame{
 
 	RightPanel rightPanel;
-	CenterPanel centerPanel;
+	ParticleInfo allParticles;
 	Menu menu;
 	
 	public GUI() throws HeadlessException {
@@ -32,15 +32,12 @@ public class GUI extends JFrame{
 		this.setJMenuBar(menu);
 		
 		//Right panel, ustawienie parametrów (Anton)
-		rightPanel = new RightPanel();
+		allParticles = new ParticleInfo(10, 1.0, 5.0, 20.0, 100.0);
+		rightPanel = new RightPanel(allParticles);
+		rightPanel.initialParam();
+		rightPanel.setParticleInfo(allParticles);
+		
 		this.add(rightPanel, BorderLayout.LINE_END);
-	
-		//Center panel (Micha³)
-		centerPanel = new CenterPanel();
-		this.add(centerPanel, BorderLayout.CENTER);
-
-		rightPanel.setCenterPanel(centerPanel);
-	
 } 
 	
 	public static void main(String[] args) {
@@ -51,8 +48,13 @@ public class GUI extends JFrame{
 				mainFrame.setVisible(true);
 
 				//obliczenia 
-				Calculations counter = new Calculations();
-				counter.setCenterPanel(mainFrame.centerPanel);
+				
+				Calculations counter = new Calculations(mainFrame.allParticles);
+				
+				CenterPanel centerPanel = new CenterPanel(counter.allParticles);
+				mainFrame.add(centerPanel, BorderLayout.CENTER);	
+				counter.setCenterPanel(centerPanel);
+				
 				mainFrame.rightPanel.setCalculations(counter);
 				
 				//Watki
