@@ -43,7 +43,7 @@ public class Calculations extends SwingWorker<Void, ParticleInfo>{
    	Random rand = new Random();
 	   	while(infty == 1) {
 
-   		dt = 0.005;
+   		dt = 0.02;
    		int dup = 0;
 		double x = 0;
 		double y = 0;

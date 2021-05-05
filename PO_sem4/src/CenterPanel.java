@@ -30,6 +30,8 @@ public class CenterPanel extends JPanel {
 		super.paintComponent(g);
 		Graphics2D g2d = (Graphics2D) g;
 		
+		this.setBackground(BGColor);
+		
 		int i = 1;
 		while (allParticles.numberSmall >= i)  {
         	Ellipse2D.Double smallParticle = new Ellipse2D.Double(allParticles.particleList.get(i).xPosition, allParticles.particleList.get(i).yPosition,

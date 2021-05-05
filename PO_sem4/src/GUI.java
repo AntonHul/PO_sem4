@@ -28,8 +28,8 @@ public class GUI extends JFrame{
 		this.setLayout(new BorderLayout());
 	
 		
-		menu = new Menu();
-		this.setJMenuBar(menu);
+		//menu = new Menu();
+		//this.setJMenuBar(menu);
 		
 		//Right panel, ustawienie parametrów (Anton)
 		allParticles = new ParticleInfo(10, 1.0, 5.0, 20.0, 100.0);
@@ -38,15 +38,19 @@ public class GUI extends JFrame{
 		rightPanel.setParticleInfo(allParticles);
 		
 		this.add(rightPanel, BorderLayout.LINE_END);
-} 
+	} 
 	
 	public static void main(String[] args) {
+		
+		
 		SwingUtilities.invokeLater(new Runnable() {
 			public void run() {
 				GUI mainFrame = new GUI();
 				mainFrame.setTitle("Brownian motion simulation");
 				mainFrame.setVisible(true);
-
+				
+				Menu menuGUI = new Menu();
+				mainFrame.setJMenuBar(menuGUI);
 				//obliczenia 
 				
 				Calculations counter = new Calculations(mainFrame.allParticles);
@@ -54,6 +58,7 @@ public class GUI extends JFrame{
 				CenterPanel centerPanel = new CenterPanel(counter.allParticles);
 				mainFrame.add(centerPanel, BorderLayout.CENTER);	
 				counter.setCenterPanel(centerPanel);
+				menuGUI.setCenterPanel(centerPanel);
 				
 				mainFrame.rightPanel.setCalculations(counter);
 				
