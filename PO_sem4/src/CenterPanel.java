@@ -34,7 +34,7 @@ public class CenterPanel extends JPanel {
 		this.setBackground(BGColor);
 		this.allParticles = allParticles;
 		positions = new ArrayList<Position>();
-		series = new XYSeries("Ruchy browna");
+		series = new XYSeries("Ruch du¿ej cz¹stki");
 
 	} // Koniec Konstruktora
 	

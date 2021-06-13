@@ -41,14 +41,15 @@ public class Calculations extends SwingWorker<Void, ParticleInfo>{
 	protected Void doInBackground() throws Exception {
    	
    	Random rand = new Random();
+   		int frameNumber = 0;
+   		int passFrames = 100;
 	   	while(infty == 1) {
 
    		dt = 0.02;
    		int dup = 0;
 		double x = 0;
 		double y = 0;
-		int frameNumber = 0;
-		int passFrames = 1000;
+		
 		
 		
    		int i = 1;
