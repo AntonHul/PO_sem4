@@ -5,9 +5,12 @@ import java.awt.LayoutManager;
 import java.awt.geom.Ellipse2D;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 import java.util.Random;
 
 import javax.swing.JPanel;
+
+import org.jfree.data.xy.XYSeries;
 
 @SuppressWarnings("serial")
 public class CenterPanel extends JPanel {
@@ -17,12 +20,21 @@ public class CenterPanel extends JPanel {
 	double valueDisplayed;
 	ParticleInfo allParticles;
 	
+	ArrayList<Position> positions; 
+	boolean addMorePositions = false;
+	
+	XYSeries series;
+
+	
+	
 	public CenterPanel(ParticleInfo allParticles) {
 		BGColor = Color.LIGHT_GRAY;
 		colorBig = Color.blue;
 		colorSmall = Color.black;
 		this.setBackground(BGColor);
 		this.allParticles = allParticles;
+		positions = new ArrayList<Position>();
+		series = new XYSeries("Ruchy browna");
 
 	} // Koniec Konstruktora
 	
@@ -47,6 +59,27 @@ public class CenterPanel extends JPanel {
         g2d.fill(bigParticle);
 	} 
 	
+	class Position {
+		double x, y;
+		
+		public Position(double xx, double yy) {
+			x = xx;
+			y = yy;
+		}
+		
+		public String getPosition() {
+			return String.format(Locale.US, "%f\t%f", x, y);
+		}
+	}
+	
+	public void clearPositions() {
+		this.positions.clear();
+		this.series.clear();
+	}
+	
+	public void addPosition(double xx, double yy) {
+		this.positions.add(new Position(xx, yy));
+	}
 
 	public void setValueDisplayed(double valueDisplayed) {
 		this.valueDisplayed = valueDisplayed;

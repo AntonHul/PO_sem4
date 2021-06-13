@@ -28,9 +28,6 @@ public class GUI extends JFrame{
 		this.setLayout(new BorderLayout());
 	
 		
-		//menu = new Menu();
-		//this.setJMenuBar(menu);
-		
 		//Right panel, ustawienie parametrów (Anton)
 		allParticles = new ParticleInfo(10, 1.0, 5.0, 20.0, 100.0);
 		rightPanel = new RightPanel(allParticles);
@@ -61,6 +58,7 @@ public class GUI extends JFrame{
 				menuGUI.setCenterPanel(centerPanel);
 				
 				mainFrame.rightPanel.setCalculations(counter);
+				mainFrame.rightPanel.setCenterPanel(centerPanel);
 				
 				//Watki
 				ExecutorService exec = Executors.newFixedThreadPool(2);

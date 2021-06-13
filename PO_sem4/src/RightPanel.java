@@ -27,6 +27,7 @@ public class RightPanel extends JPanel{
 	double valueMassSmall, valueRadiusSmall, valueMassLarge, valueRadiusLarge;
 	Calculations counter;
 	ParticleInfo particles; 
+	CenterPanel centerPanel;
 	
 	public RightPanel(ParticleInfo particles) {
 		this.setLayout(new GridLayout(0, 1, 10, 10));	
@@ -149,7 +150,7 @@ public class RightPanel extends JPanel{
 			}});
 		this.add(textDisplayed);
 	
-//Button START/STOP	
+//Button RESET	
 		
 		reset = new JButton("RESET");
 		reset.addActionListener(new ActionListener(){
@@ -157,6 +158,12 @@ public class RightPanel extends JPanel{
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// TODO update parametrow symulacji
+				
+				centerPanel.clearPositions();
+				on_off = 0;
+				counter.setOnOff(on_off);
+				centerPanel.addMorePositions = false;
+				
 				numberSmall = 10;
 				textNumberSmall.setText(Integer.toString(numberSmall));
 				particles.numberSmallTmp  = numberSmall;
@@ -190,7 +197,10 @@ public class RightPanel extends JPanel{
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				// TODO update parametrow symulacji
+				
+				if(centerPanel.addMorePositions == true) centerPanel.addMorePositions = false;
+				else centerPanel.addMorePositions = true;
+				
 				if (on_off == 0) {
 					on_off = 1;
 				}else{
@@ -231,4 +241,8 @@ public class RightPanel extends JPanel{
 	public void setParticleInfo(ParticleInfo particles) {
 		this.particles = particles;
 	}
+	
+	public void setCenterPanel(CenterPanel centerPanel) {
+    	this.centerPanel = centerPanel;
+    }	
 }

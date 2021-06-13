@@ -14,7 +14,7 @@ import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.SwingWorker;
 
-
+import org.jfree.data.xy.XYSeries;
 
 @SuppressWarnings("serial")
 public class Calculations extends SwingWorker<Void, ParticleInfo>{
@@ -47,6 +47,9 @@ public class Calculations extends SwingWorker<Void, ParticleInfo>{
    		int dup = 0;
 		double x = 0;
 		double y = 0;
+		int frameNumber = 0;
+		int passFrames = 1000;
+		
 		
    		int i = 1;
    		if(allParticles.numberSmallTmp > allParticles.numberSmall) {
@@ -100,11 +103,22 @@ public class Calculations extends SwingWorker<Void, ParticleInfo>{
 			}
 		contactDetection(); //Detekcja kontaktu z innymi czastkami
    	   	}
+   	   	
+   	   	if(frameNumber % passFrames == 0 && centerPanel.addMorePositions) {
+			centerPanel.addPosition(allParticles.particleList.get(0).xPosition, allParticles.particleList.get(0).yPosition);
+			centerPanel.series.add(allParticles.particleList.get(0).xPosition, allParticles.particleList.get(0).yPosition);
+		}
+
+		frameNumber++;
+   	   	
 		Thread.sleep(1);
 		publish(allParticles);
+		
    	}
    	return null;
 	}
+	
+	
 	
 	public static class Distance {
 		int index; //index
