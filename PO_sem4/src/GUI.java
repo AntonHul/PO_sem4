@@ -28,7 +28,7 @@ public class GUI extends JFrame{
 		this.setLayout(new BorderLayout());
 	
 		
-		//Right panel, ustawienie parametrów (Anton)
+		//Right panel, ustawienie parametrów (Anton) 
 		allParticles = new ParticleInfo(10, 1.0, 5.0, 20.0, 100.0);
 		rightPanel = new RightPanel(allParticles);
 		rightPanel.initialParam();

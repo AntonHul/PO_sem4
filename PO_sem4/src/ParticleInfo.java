@@ -4,7 +4,7 @@ import java.util.Random;
 
 public class ParticleInfo {
 	
-	int numberSmall, numberSmallTmp, valueDisplayed;
+	int numberSmall, numberSmallTmp, valueDisplayed; 
 	double valueMassSmall, valueRadiusSmall, valueMassLarge, valueRadiusLarge;
 	
 	List<Particle> particleList;
