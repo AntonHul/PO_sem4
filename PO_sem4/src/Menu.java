@@ -178,5 +178,5 @@ public class Menu extends JMenuBar{
     public void setCenterPanel(CenterPanel centerPanel) {
     	this.centerPanel = centerPanel;
     }	
-
+//fsfsffsfs
 }
