@@ -32,12 +32,12 @@ import com.orsonpdf.Page;
 public class Menu extends JMenuBar{
 	
 	JMenuBar menuBar;
-    JMenu menuExport, menuOptions, menuLanguage, menuColors; 
-    JMenuItem menuItem1, menuItem2, menuItem3, menuItemExport;
+    JMenu menuExport, menuOptions, menuLanguage, menuColors, menuItem2; 
+    JMenuItem menuItem1, menuItem3, menuItemExport;
     JMenuItem submenuItem1, submenuItem2, submenuItem3;
     CenterPanel centerPanel;
 	RightPanel rightPanel;
-	
+	Calculations calc; 
     Color BGColor, bigParticleColor, smallParticlesColor;
     
     public Menu() {
@@ -67,7 +67,6 @@ public class Menu extends JMenuBar{
 						false
 					);
 				XYPlot xyPlot = (XYPlot) chart.getPlot();
-		        //XYItemRenderer renderer = xyPlot.getRenderer();
 		        NumberAxis domain = (NumberAxis) xyPlot.getDomainAxis();
 		        domain.setRange(0.00, centerPanel.getWidth());
 		        NumberAxis range = (NumberAxis) xyPlot.getRangeAxis();
@@ -76,13 +75,7 @@ public class Menu extends JMenuBar{
 		        
 		        
 		        String s = (String)JOptionPane.showInputDialog(null, "Choose filename:\n", "Save image...", JOptionPane.PLAIN_MESSAGE, null, null, "...");	
-		        
-				//Dodanie wykresu do okna
-		        /*
-				ChartFrame frame1=new ChartFrame("XYLine Chart",chart);
-				frame1.setVisible(true);
-				frame1.setSize(500,400);
-				*/
+
 				PDFDocument pdfDoc = new PDFDocument();
 				Page page1 = pdfDoc.createPage(new Rectangle(794, 1123));
 				PDFGraphics2D gpage1 = page1.getGraphics2D();
@@ -129,10 +122,42 @@ public class Menu extends JMenuBar{
         menuOptions = new JMenu("Options");
         this.add(menuOptions);
         menuItem1 = new JMenuItem("Algorithm");
+        menuItem1.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				JOptionPane.showMessageDialog(null, "Used algorithm: Euler's method");
+			}
+        });
         menuOptions.add(menuItem1);
-        menuItem2 = new JMenuItem("Boundary conditions");
+        
+        
+        menuItem2 = new JMenu("Boundary conditions");
+        JMenuItem boundaryOn = new JMenuItem("Reflection");
+        boundaryOn.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				calc.boundary = true;
+			}
+        });
+        menuItem2.add(boundaryOn);
+        JMenuItem boundaryOff = new JMenuItem("Periodic");
+        boundaryOff.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				calc.boundary = false;
+			}
+        });
+        menuItem2.add(boundaryOff);
+        
+        
         menuOptions.add(menuItem2);
         menuItem3 = new JMenuItem("Initial distribution");
+        menuItem3.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				JOptionPane.showMessageDialog(null, "Initial distribution: Uniform distribution");
+			}
+        });
         menuOptions.add(menuItem3);
         
         menuColors = new JMenu("Color theme");
@@ -288,5 +313,9 @@ public class Menu extends JMenuBar{
     
     public void setRightPanel(RightPanel rightPanel) {
     	this.rightPanel= rightPanel;
+    }
+    
+    public void setCalculations(Calculations calc) {
+    	this.calc = calc;
     }
 }

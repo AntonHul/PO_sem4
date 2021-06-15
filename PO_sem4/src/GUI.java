@@ -54,7 +54,7 @@ public class GUI extends JFrame{
 				//obliczenia 
 				
 				Calculations counter = new Calculations(mainFrame.allParticles);
-				
+				menuGUI.setCalculations(counter);
 				CenterPanel centerPanel = new CenterPanel(counter.allParticles);
 				mainFrame.add(centerPanel, BorderLayout.CENTER);	
 				counter.setCenterPanel(centerPanel);

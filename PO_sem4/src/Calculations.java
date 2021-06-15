@@ -22,7 +22,8 @@ public class Calculations extends SwingWorker<Void, ParticleInfo>{
 	CenterPanel centerPanel;
 	double dt;
 	ParticleInfo allParticles;
-
+	boolean boundary = true;
+	
 	public Calculations(ParticleInfo allParticles) {
     	 Random rand = new Random();
     	 this.allParticles = allParticles;
@@ -86,9 +87,15 @@ public class Calculations extends SwingWorker<Void, ParticleInfo>{
    		allParticles.particleList.get(0).xPosition += allParticles.particleList.get(0).xVelocity * dt;
 		allParticles.particleList.get(0).yPosition += allParticles.particleList.get(0).yVelocity * dt;
 		
+		if (boundary == true) {
 		if(allParticles.particleList.get(0).xPosition >= centerPanel.getWidth() - allParticles.particleList.get(0).radius * 2 || allParticles.particleList.get(0).xPosition <= 0) allParticles.particleList.get(0).xVelocity *= -1;
 		if(allParticles.particleList.get(0).yPosition >= centerPanel.getHeight()- allParticles.particleList.get(0).radius * 2 || allParticles.particleList.get(0).yPosition <= 0) allParticles.particleList.get(0).yVelocity *= -1;
-		
+		} else {
+			if(allParticles.particleList.get(0).xPosition >= centerPanel.getWidth()) allParticles.particleList.get(0).xPosition = 0;
+            else if(allParticles.particleList.get(0).xPosition <= 0) allParticles.particleList.get(0).xPosition = centerPanel.getWidth();
+            if(allParticles.particleList.get(0).yPosition >= centerPanel.getHeight()) allParticles.particleList.get(0).yPosition = 0;
+            else if(allParticles.particleList.get(0).yPosition <= 0) allParticles.particleList.get(0).yPosition = centerPanel.getHeight();
+		}
    		
    		i=1;
 		while (allParticles.numberSmall >= i)  {
@@ -96,9 +103,15 @@ public class Calculations extends SwingWorker<Void, ParticleInfo>{
 			allParticles.particleList.get(i).xPosition += allParticles.particleList.get(i).xVelocity * dt;
 			allParticles.particleList.get(i).yPosition += allParticles.particleList.get(i).yVelocity * dt;
 			
+			if (boundary == true) {
 			if(allParticles.particleList.get(i).xPosition >= centerPanel.getWidth() - allParticles.particleList.get(i).radius * 2 || allParticles.particleList.get(i).xPosition <= 0) allParticles.particleList.get(i).xVelocity *= -1;
 			if(allParticles.particleList.get(i).yPosition >= centerPanel.getHeight()- allParticles.particleList.get(i).radius * 2 || allParticles.particleList.get(i).yPosition <= 0) allParticles.particleList.get(i).yVelocity *= -1;
-			
+			} else {
+				if(allParticles.particleList.get(i).xPosition >= centerPanel.getWidth()) allParticles.particleList.get(i).xPosition = 0;
+	            else if(allParticles.particleList.get(i).xPosition <= 0) allParticles.particleList.get(i).xPosition = centerPanel.getWidth();
+	            if(allParticles.particleList.get(i).yPosition >= centerPanel.getHeight()) allParticles.particleList.get(i).yPosition = 0;
+	            else if(allParticles.particleList.get(i).yPosition <= 0) allParticles.particleList.get(i).yPosition = centerPanel.getHeight();	
+			}
 			
 			i++;
 			}
@@ -186,8 +199,11 @@ public class Calculations extends SwingWorker<Void, ParticleInfo>{
 		
 		double M, m1, m2, x1, x2, y1, y2, vx1, vx2, vy1, vy2; //zmienne pomocnicze, bedzie mozna pozniej pousuwac
 		
-		m1 = allParticles.particleList.get(i).mass;
-		m2 = allParticles.particleList.get(j).mass;
+		if (i == 0) m1 = allParticles.valueMassLarge;
+		else m1 = allParticles.particleList.get(i).mass; 
+		if (j == 0) m2 = allParticles.valueMassLarge;
+		else m2 = allParticles.particleList.get(j).mass;
+
 		M = m1 + m2;
 		
 		x1 = allParticles.particleList.get(i).xPosition + allParticles.particleList.get(i).radius;
@@ -221,9 +237,6 @@ public class Calculations extends SwingWorker<Void, ParticleInfo>{
     	this.on_off = on_off;
 	}
 	
-	void updatePositions(ParticleInfo particles) {
-		//TODO do zrobienia w osobnych funkcjach
-	}
 	
 	@Override
     protected void process(List <ParticleInfo> allParticles) {

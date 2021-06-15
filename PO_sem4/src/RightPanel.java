@@ -107,7 +107,7 @@ public class RightPanel extends JPanel{
 				try {
 				if(!textMassLarge.getText().equals(""))
 					valueMassLarge = Double.parseDouble(textMassLarge.getText());
-					particles.valueMassLarge  = valueMassLarge;
+					particles.valueMassLarge = valueMassLarge;
 				}
 				catch(NumberFormatException e) {}
 			}});
