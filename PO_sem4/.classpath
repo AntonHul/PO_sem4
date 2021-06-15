@@ -2,13 +2,14 @@
 <classpath>
 	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="src" path="res"/>
+	<classpathentry kind="src" path="LIB"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-15">
 		<attributes>
 			<attribute name="module" value="true"/>
 		</attributes>
 	</classpathentry>
+	<classpathentry kind="lib" path="C:/Users/anton/git/PO_sem4/PO_sem4/LIB/jfreechart-1.0.17.jar"/>
 	<classpathentry kind="lib" path="C:/Users/anton/git/PO_sem4/PO_sem4/LIB/jcommon-1.0.21.jar"/>
 	<classpathentry kind="lib" path="C:/Users/anton/git/PO_sem4/PO_sem4/LIB/orsonpdf-1.7.jar"/>
-	<classpathentry kind="lib" path="C:/Users/anton/git/PO_sem4/PO_sem4/LIB/jfreechart-1.0.17.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
