@@ -56,7 +56,7 @@ public class RightPanel extends JPanel{
 
 		
 		
-		labelMassSmall = new JLabel("The mass of the small molecules:");
+		labelMassSmall = new JLabel("The mass of small molecules:");
 		labelMassSmall.setBorder(BorderFactory.createLineBorder(new Color(0,0,0)));
 		this.add(labelMassSmall);
 		textMassSmall = new JTextField();
@@ -75,7 +75,7 @@ public class RightPanel extends JPanel{
 			}});
 		this.add(textMassSmall);
 		
-		labelRadiusSmall = new JLabel("The radius of the small molecules:");
+		labelRadiusSmall = new JLabel("The radius of small molecules:");
 		labelRadiusSmall.setBorder(BorderFactory.createLineBorder(new Color(0,0,0)));
 		this.add(labelRadiusSmall);
 		textRadiusSmall = new JTextField();

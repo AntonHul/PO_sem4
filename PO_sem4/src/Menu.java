@@ -6,6 +6,8 @@ import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.Locale;
+import java.util.ResourceBundle;
 
 import javax.swing.JColorChooser;
 import javax.swing.JMenu;
@@ -34,6 +36,7 @@ public class Menu extends JMenuBar{
     JMenuItem menuItem1, menuItem2, menuItem3, menuItemExport;
     JMenuItem submenuItem1, submenuItem2, submenuItem3;
     CenterPanel centerPanel;
+	RightPanel rightPanel;
 	
     Color BGColor, bigParticleColor, smallParticlesColor;
     
@@ -167,8 +170,112 @@ public class Menu extends JMenuBar{
         menuColors.add(submenuItem3);
         
         menuLanguage = new JMenu("Language");
+        JMenuItem menuLanEn = new JMenuItem("English");
+        menuLanEn.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				Locale enLocale = new Locale("en");
+				ResourceBundle messages = ResourceBundle.getBundle("MessagesBundle", enLocale);
+				rightPanel.labelNumberSmall.setText(messages.getString("NumberSmall"));
+				rightPanel.labelMassSmall.setText(messages.getString("MassSmall"));
+				rightPanel.labelRadiusSmall.setText(messages.getString("RadiusSmall"));
+				rightPanel.labelMassLarge.setText(messages.getString("MassLarge"));
+				rightPanel.labelRadiusLarge.setText(messages.getString("RadiusLarge"));
+				rightPanel.labelDisplayed.setText(messages.getString("Displayed"));
+				
+				rightPanel.start.setText(messages.getString("Start"));
+				rightPanel.reset.setText(messages.getString("Reset"));
+				
+				menuExport.setText(messages.getString("Export"));
+				menuItemExport.setText(messages.getString("ItemExport"));
+		        
+				menuOptions.setText(messages.getString("Options"));
+		        menuItem1.setText(messages.getString("Algorithm"));
+		        menuItem2.setText(messages.getString("Boundary")); 
+		        menuItem3.setText(messages.getString("Distribution")); 
+		    
+		        menuColors.setText(messages.getString("Color"));
+		        submenuItem1.setText(messages.getString("BgColor")); 
+		        submenuItem2.setText(messages.getString("BigColor"));
+		        submenuItem3.setText(messages.getString("SmallColor")); 
+		        
+		        menuLanguage.setText(messages.getString("Language"));
+			}
+        });
+        menuLanguage.add(menuLanEn);
+       
+        JMenuItem menuLanPl = new JMenuItem("Polish");
+        menuLanPl.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				Locale plLocale = new Locale("pl");
+				ResourceBundle messages = ResourceBundle.getBundle("MessagesBundle", plLocale);
+				rightPanel.labelNumberSmall.setText(messages.getString("NumberSmall"));
+				rightPanel.labelMassSmall.setText(messages.getString("MassSmall"));
+				rightPanel.labelRadiusSmall.setText(messages.getString("RadiusSmall"));
+				rightPanel.labelMassLarge.setText(messages.getString("MassLarge"));
+				rightPanel.labelRadiusLarge.setText(messages.getString("RadiusLarge"));
+				rightPanel.labelDisplayed.setText(messages.getString("Displayed"));
+				
+				rightPanel.start.setText(messages.getString("Start"));
+				rightPanel.reset.setText(messages.getString("Reset"));
+				
+				menuExport.setText(messages.getString("Export"));
+				menuItemExport.setText(messages.getString("ItemExport"));
+		        
+				menuOptions.setText(messages.getString("Options"));
+		        menuItem1.setText(messages.getString("Algorithm"));
+		        menuItem2.setText(messages.getString("Boundary")); 
+		        menuItem3.setText(messages.getString("Distribution")); 
+		    
+		        menuColors.setText(messages.getString("Color"));
+		        submenuItem1.setText(messages.getString("BgColor")); 
+		        submenuItem2.setText(messages.getString("BigColor"));
+		        submenuItem3.setText(messages.getString("SmallColor")); 
+		        
+		        menuLanguage.setText(messages.getString("Language"));
+			}
+        });
+        menuLanguage.add(menuLanPl);
+        
+        JMenuItem menuLanRu = new JMenuItem("Russian");
+        menuLanRu.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				Locale ruLocale = new Locale("ru");
+				ResourceBundle messages = ResourceBundle.getBundle("MessagesBundle", ruLocale);
+				rightPanel.labelNumberSmall.setText(messages.getString("NumberSmall"));
+				rightPanel.labelMassSmall.setText(messages.getString("MassSmall"));
+				rightPanel.labelRadiusSmall.setText(messages.getString("RadiusSmall"));
+				rightPanel.labelMassLarge.setText(messages.getString("MassLarge"));
+				rightPanel.labelRadiusLarge.setText(messages.getString("RadiusLarge"));
+				rightPanel.labelDisplayed.setText(messages.getString("Displayed"));
+				
+				rightPanel.start.setText(messages.getString("Start"));
+				rightPanel.reset.setText(messages.getString("Reset"));
+				
+				menuExport.setText(messages.getString("Export"));
+				menuItemExport.setText(messages.getString("ItemExport"));
+		        
+				menuOptions.setText(messages.getString("Options"));
+		        menuItem1.setText(messages.getString("Algorithm"));
+		        menuItem2.setText(messages.getString("Boundary")); 
+		        menuItem3.setText(messages.getString("Distribution")); 
+		    
+		        menuColors.setText(messages.getString("Color"));
+		        submenuItem1.setText(messages.getString("BgColor")); 
+		        submenuItem2.setText(messages.getString("BigColor"));
+		        submenuItem3.setText(messages.getString("SmallColor")); 
+		        
+		        menuLanguage.setText(messages.getString("Language"));
+			}
+        });
+        menuLanguage.add(menuLanRu);
         this.add(menuLanguage);
-          
+		
 	} // Koniec konstruktora
     
     public Color getBGColor() {
@@ -178,5 +285,8 @@ public class Menu extends JMenuBar{
     public void setCenterPanel(CenterPanel centerPanel) {
     	this.centerPanel = centerPanel;
     }	
-//fsfsffsfs
+    
+    public void setRightPanel(RightPanel rightPanel) {
+    	this.rightPanel= rightPanel;
+    }
 }

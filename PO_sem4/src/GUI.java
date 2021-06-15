@@ -6,6 +6,8 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
+import java.util.Locale;
+import java.util.ResourceBundle;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
@@ -47,6 +49,7 @@ public class GUI extends JFrame{
 				mainFrame.setVisible(true);
 				
 				Menu menuGUI = new Menu();
+				menuGUI.setRightPanel(mainFrame.rightPanel);
 				mainFrame.setJMenuBar(menuGUI);
 				//obliczenia 
 				
